@@ -1,0 +1,122 @@
+﻿<style>
+    .img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .exit-btn-position, .index-location, .back-btn-position, .next-btn-position {
+        position: absolute;
+    }
+
+    .exit-btn-position {
+        top: 5px;
+        right: 5px;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .index-location {
+        top: 5px;
+        left: 5px;
+    }
+
+    .nav-btn button {
+        background: none;
+        outline: none;
+        border: none;
+        color: black;
+        cursor: pointer;
+        font: inherit;
+        font-size: larger;
+        opacity: 0;
+        transition-property: all;
+        transition-duration: 1s;
+    }
+
+        .nav-btn button:hover {
+            opacity: 1;
+            text-shadow: 2px 2px white;
+        }
+
+    .back-btn-position, .next-btn-position {
+        top: 25px;
+        bottom: 25px;
+    }
+
+    .back-btn-position {
+        left: 5px;
+    }
+
+    .next-btn-position {
+        right: 5px;
+    }
+</style>
+
+<h3>ModalGallery</h3>
+<Modal @ref="modal" ShowFooter="false">
+    <Body>
+        <div style="position:relative; justify-content:center">
+            <div class="index-location">
+                <h3>@ImageList[index].Id</h3>
+            </div>
+
+            <img src="@ImageList[index].Source" class="img" alt="Alternate Text" />
+            <button type="button" class="close exit-btn-position" data-dismiss="modal" aria-label="Close" @onclick="()=>modal.Close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="nav-btn">
+            <button class=" back-btn-position" disabled="@isBackBtnDisabled" @onclick="Back">Back</button>
+            <button class=" next-btn-position" disabled="@isNextBtnDisabled" @onclick="Next">Next</button>
+        </div>
+
+
+    </Body>
+</Modal>
+
+
+
+@code {
+    [Parameter] public List<Image> ImageList { get; set; }
+    private Modal modal { get; set; }
+    private int index = 0;
+    private bool isNextBtnDisabled;
+    private bool isBackBtnDisabled;
+
+    protected override void OnInitialized()
+    {
+        CheckButtonState();
+    }
+    public void Open()
+    {
+        modal.Open();
+    }
+    public async Task Close()
+    {
+        await modal.Close();
+    }
+    private void Next()
+    {
+        if (index < ImageList.Count - 1)
+        {
+            index++;
+        }
+        CheckButtonState();
+    }
+    private void Back()
+    {
+        if (index > 0)
+        {
+            index--;
+        }
+        CheckButtonState();
+    }
+    private void CheckButtonState()
+    {
+        isNextBtnDisabled = (index == ImageList.Count - 1) ? true : false;
+        isBackBtnDisabled = (index == 0) ? true : false;
+    }
+
+}

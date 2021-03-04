@@ -1,0 +1,47 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your BlazorModal.
+<button class="btn btn-primary" @onclick="() => modal.Open()">Modal!</button>
+
+<Modal @ref="modal" ShowFooter="true" ShowHeader="true">
+    <Title>This is a <em>Title!</em></Title>
+    <Body>
+        <p>blablabla</p>
+        <FetchData />
+
+    </Body>
+    <Footer>
+        <button type="button" class="btn btn-primary">button</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => modal.Close()">Close</button>
+    </Footer>
+</Modal>
+
+
+<button class="btn btn-primary" @onclick="() => modalGallery.Open()">Modalgallery!</button>
+<ModalGallery ImageList="ImageList" @ref="modalGallery" />
+
+
+@code {
+    private List<Image> ImageList { get; set; }
+    private Modal modal { get; set; }
+    private ModalGallery modalGallery { get; set; }
+    protected override void OnInitialized()
+    {
+        ImageList = imgList;
+    }
+    private List<Image> imgList = new()
+    {
+            new Image { Id = 1, Source = "https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g" },
+            new Image { Id = 2, Source = "https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g" },
+            new Image { Id = 3, Source = "https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g" },
+            new Image { Id = 4, Source = "https://i.picsum.photos/id/101/2621/1747.jpg?hmac=cu15YGotS0gIYdBbR1he5NtBLZAAY6aIY5AbORRAngs" },
+            new Image { Id = 5, Source = "https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g" },
+            new Image { Id = 6, Source = "https://i.picsum.photos/id/1010/5184/3456.jpg?hmac=7SE0MNAloXpJXDxio2nvoshUx9roGIJ_5pZej6qdxXs" },
+            new Image { Id = 7, Source = "https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g" },
+
+        };
+
+
+}

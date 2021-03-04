@@ -1,0 +1,31 @@
+﻿.modal-size {
+    max-height:80%;
+    max-width:80%;
+    position:relative;
+}
+
+.fadein{
+    animation:fadein 1.5s;
+}
+.fadeout{
+    animation:fadeout 1s;
+}
+
+
+
+@keyframes fadein{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+@keyframes fadeout{
+    from{
+        opacity:1;
+    }
+    to{
+        opacity:0;
+    }
+}
